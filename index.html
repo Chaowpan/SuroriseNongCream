@@ -1,42 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>iPhone 13 Frame (No Camera)</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Heart Game</title>
   <style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      background-color: #f0f0f0;
-    }
-
-    .iphone-frame {
-      width: 390px;
-      height: 844px;
-      border: 16px solid #333;
-      border-radius: 40px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      height: 100vh;
+      background: #ffeef0;
       overflow: hidden;
-      background-color: white;
       position: relative;
+      font-family: sans-serif;
     }
 
-    .content {
-      width: 100%;
-      height: 100%;
-      padding: 1rem;
-      box-sizing: border-box;
-      overflow: auto;
+    .heart {
+      position: absolute;
+      width: 120px;
+      height: 108px;
+      background: red;
+      transform: rotate(-45deg);
+      animation: heartbeat 1s infinite ease-in-out;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 108px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -60px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: 60px;
+    }
+
+    .heart-text {
+      transform: rotate(45deg);
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 1;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: rotate(-45deg) scale(1);
+      }
+      50% {
+        transform: rotate(-45deg) scale(1.2);
+      }
+    }
+
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: gold;
+      animation: explode 700ms ease-out forwards;
+      z-index: 1;
+    }
+
+    @keyframes explode {
+      to {
+        transform: translate(var(--x), var(--y)) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .final-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 5;
+    }
+
+    .final-message h1 {
+      font-size: 2.5rem;
+      color: #ff3366;
+      margin: 0;
+      animation: pop-in 0.5s ease-out forwards;
+    }
+
+    .final-message p {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 10px;
+    }
+
+    @keyframes pop-in {
+      0% {
+        transform: scale(0.5) translate(-50%, -50%);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1) translate(-50%, -50%);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="iphone-frame">
-    <div class="content">
-    </div>
+
+  <div class="heart" id="heart">
+    <div class="heart-text" id="heartText">ลองกดดูสิ</div>
   </div>
+
+  <div class="final-message" id="finalMessage" style="display: none;">
+    <h1>ไปซื้อไอแพดก๊านนนนน</h1>
+    <p>สุขสันต์วันเกิดน้าาน้องครีมคนสวย...</p>
+  </div>
+
+  <script>
+    const heart = document.getElementById('heart');
+    const heartText = document.getElementById('heartText');
+    const finalMessage = document.getElementById('finalMessage');
+
+    const messages = [
+      "ลองกดดูสิ",
+      "ช้าจังง",
+      "กดช้าจังเลยอ่าา",
+      "แบร่กดให้ทันสี้",
+      "อุ้ยช้าอ่าา",
+      "อิอิอิแบร่~~",
+      "อุ้ยยย",
+      "เร็วอีกได้อ้ะป่าวว",
+      "แบร่~",
+      "นิ้วหนักมากแน่เลยอ่าาา",
+      "แบร่ๆๆ",
+      "ก็มาดิค้าบบ",
+      "แบร่ๆๆ",
+      "ไปซื้อไอแพดกัน"
+    ];
+
+    let clickCount = 0;
+
+    function moveHeartRandomly() {
+      const maxX = window.innerWidth - 130;
+      const maxY = window.innerHeight - 130;
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+      heart.style.left = `${randomX}px`;
+      heart.style.top = `${randomY}px`;
+    }
+
+    function createFireworksFullScreen() {
+      const count = 80;
+      for (let i = 0; i < count; i++) {
+        const particle = document.createElement("div");
+        particle.className = "firework";
+
+        const x = window.innerWidth / 2;
+        const y = window.innerHeight / 2;
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = Math.random() * 200 + 100;
+        const xMove = Math.cos(angle) * distance + "px";
+        const yMove = Math.sin(angle) * distance + "px";
+
+        particle.style.setProperty("--x", xMove);
+        particle.style.setProperty("--y", yMove);
+
+        document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 1000);
+      }
+    }
+
+    heart.addEventListener('click', () => {
+      clickCount++;
+
+      if (clickCount < messages.length) {
+        heart.style.display = 'none';
+        setTimeout(() => {
+          moveHeartRandomly();
+          heartText.textContent = messages[clickCount];
+          heart.style.display = 'flex';
+        }, 300);
+      } else {
+        // Final explosion
+        heart.remove();
+        createFireworksFullScreen();
+        finalMessage.style.display = 'block';
+      }
+    });
+
+    // Initial position center
+    window.onload = () => {
+      heart.style.left = `calc(50% - 60px)`;
+      heart.style.top = `calc(50% - 54px)`;
+    };
+  </script>
+
 </body>
 </html>
