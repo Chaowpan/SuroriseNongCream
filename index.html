@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heart Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surprise Heart</title>
   <style>
     body {
       margin: 0;
@@ -11,71 +11,99 @@
       background: #ffeef0;
       overflow: hidden;
       position: relative;
-      font-family: sans-serif;
+      font-family: 'Kanit', sans-serif;
     }
 
-    .heart {
-      position: absolute;
-      width: 120px;
-      height: 108px;
-      background: red;
-      transform: rotate(-45deg);
-      animation: heartbeat 1s infinite ease-in-out;
-      box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-    }
+   .heart {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background-color: #e63946; /* สีแดงสดสวย */
+  transform: rotate(-45deg);
+  animation: heartbeat 1s infinite ease-in-out;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  box-shadow:
+    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+    0 3px 6px rgba(230, 57, 70, 0.5);
+  transition: box-shadow 0.3s ease;
+}
 
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 120px;
-      height: 108px;
-      background: red;
-      border-radius: 50%;
-    }
+.heart:hover {
+  box-shadow:
+    inset 3px 3px 8px rgba(255, 255, 255, 0.8),
+    0 5px 10px rgba(230, 57, 70, 0.8);
+}
 
-    .heart::before {
-      top: -60px;
-      left: 0;
-    }
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background-color: #e63946;
+  border-radius: 50%;
+  box-shadow:
+    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+    0 3px 6px rgba(230, 57, 70, 0.5);
+  transition: box-shadow 0.3s ease;
+}
 
-    .heart::after {
-      top: 0;
-      left: 60px;
-    }
+.heart:hover::before,
+.heart:hover::after {
+  box-shadow:
+    inset 3px 3px 8px rgba(255, 255, 255, 0.8),
+    0 5px 10px rgba(230, 57, 70, 0.8);
+}
 
-    .heart-text {
-      transform: rotate(45deg);
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      text-align: center;
-      z-index: 1;
-      pointer-events: none;
-      white-space: nowrap;
-    }
+.heart::before {
+  top: -45px;
+  left: 0;
+}
+
+.heart::after {
+  left: 45px;
+  top: 0;
+}
+
+
+
+
+   .heart-text {
+  transform: rotate(45deg);
+  color: white;
+  font-size: 0.9rem;  /* ลดขนาดข้อความ */
+  font-weight: 700;
+  text-align: center;
+  z-index: 1;
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1.1;
+  padding: 0 6px; /* เว้นระยะขอบให้ข้อความไม่ชิดเกินไป */
+}
+
 
     @keyframes heartbeat {
       0%, 100% {
         transform: rotate(-45deg) scale(1);
       }
       50% {
-        transform: rotate(-45deg) scale(1.2);
+        transform: rotate(-45deg) scale(1.15);
       }
     }
 
+    /* พลุ */
     .firework {
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background-color: gold;
-      animation: explode 700ms ease-out forwards;
+      animation: explode 1000ms ease-out forwards;
       z-index: 1;
     }
 
@@ -86,36 +114,50 @@
       }
     }
 
+    /* ข้อความสุดท้ายใหญ่อลัง */
     .final-message {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 5;
+      z-index: 10;
+      animation: fadeIn 1s ease-out;
+      user-select: none;
+      pointer-events: none;
     }
 
     .final-message h1 {
-      font-size: 2.5rem;
-      color: #ff3366;
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: #a833ff;
+      text-shadow:
+        0 0 10px #a833ff,
+        0 0 20px #c866ff,
+        0 0 30px #d288ff,
+        0 0 40px #bb00ff,
+        0 0 60px #c87fff,
+        0 0 80px #d1a3ff;
       margin: 0;
-      animation: pop-in 0.5s ease-out forwards;
     }
 
     .final-message p {
-      font-size: 0.9rem;
+      margin-top: 20px;
+      font-size: 1.2rem;
       color: #555;
-      margin-top: 10px;
+      font-weight: 500;
+      opacity: 0.85;
+      letter-spacing: 0.05em;
     }
 
-    @keyframes pop-in {
-      0% {
-        transform: scale(0.5) translate(-50%, -50%);
+    @keyframes fadeIn {
+      from {
         opacity: 0;
+        transform: scale(0.8) translate(-50%, -50%);
       }
-      100% {
-        transform: scale(1) translate(-50%, -50%);
+      to {
         opacity: 1;
+        transform: scale(1) translate(-50%, -50%);
       }
     }
   </style>
@@ -127,7 +169,7 @@
   </div>
 
   <div class="final-message" id="finalMessage" style="display: none;">
-    <h1>ไปซื้อไอแพดก๊านนนนน</h1>
+    <h1>ไปซื้อไอแพดก๊านนนน</h1>
     <p>สุขสันต์วันเกิดน้าาน้องครีมคนสวย...</p>
   </div>
 
@@ -156,16 +198,20 @@
     let clickCount = 0;
 
     function moveHeartRandomly() {
-      const maxX = window.innerWidth - 130;
-      const maxY = window.innerHeight - 130;
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
+      const heartRect = heart.getBoundingClientRect();
+      const padding = 10; // เผื่อขอบไม่ให้ชนขอบเป๊ะๆ
+      const maxX = window.innerWidth - heartRect.width - padding;
+      const maxY = window.innerHeight - heartRect.height - padding;
+      const randomX = Math.floor(Math.random() * (maxX - padding) + padding);
+      const randomY = Math.floor(Math.random() * (maxY - padding) + padding);
       heart.style.left = `${randomX}px`;
       heart.style.top = `${randomY}px`;
     }
 
     function createFireworksFullScreen() {
-      const count = 80;
+      const count = 120;
+      const colors = ['#ffcc00', '#ff3366', '#66ccff', '#a833ff', '#00e676'];
+
       for (let i = 0; i < count; i++) {
         const particle = document.createElement("div");
         particle.className = "firework";
@@ -176,16 +222,16 @@
         particle.style.top = `${y}px`;
 
         const angle = Math.random() * 2 * Math.PI;
-        const distance = Math.random() * 200 + 100;
+        const distance = Math.random() * 300 + 100;
         const xMove = Math.cos(angle) * distance + "px";
         const yMove = Math.sin(angle) * distance + "px";
 
         particle.style.setProperty("--x", xMove);
         particle.style.setProperty("--y", yMove);
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
 
         document.body.appendChild(particle);
-
-        setTimeout(() => particle.remove(), 1000);
+        setTimeout(() => particle.remove(), 1200);
       }
     }
 
@@ -195,23 +241,22 @@
       if (clickCount < messages.length) {
         heart.style.display = 'none';
         setTimeout(() => {
-          moveHeartRandomly();
           heartText.textContent = messages[clickCount];
+          moveHeartRandomly();
           heart.style.display = 'flex';
         }, 300);
       } else {
-        // Final explosion
         heart.remove();
         createFireworksFullScreen();
         finalMessage.style.display = 'block';
       }
     });
 
-    // Initial position center
-    window.onload = () => {
-      heart.style.left = `calc(50% - 60px)`;
-      heart.style.top = `calc(50% - 54px)`;
-    };
+   window.onload = () => {
+    const padding = 10;
+    heart.style.left = `${(window.innerWidth - heart.offsetWidth) / 2}px`;
+    heart.style.top = `${(window.innerHeight - heart.offsetHeight) / 2}px`;
+  };
   </script>
 
 </body>
