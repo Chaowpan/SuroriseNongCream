@@ -14,77 +14,68 @@
       font-family: 'Kanit', sans-serif;
     }
 
-   .heart {
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  background-color: #e63946; /* สีแดงสดสวย */
-  transform: rotate(-45deg);
-  animation: heartbeat 1s infinite ease-in-out;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 18px;
-  box-shadow:
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    0 3px 6px rgba(230, 57, 70, 0.5);
-  transition: box-shadow 0.3s ease;
-}
+    .heart {
+      position: absolute;
+      width: 4.6vw;
+      height: 4.6vw;
+      max-width: 53.5px;
+      max-height: 53.5px;
+      min-width: 23px;
+      min-height: 23px;
+      background-color: #e63946;
+      transform: rotate(-45deg);
+      animation: heartbeat 1s infinite ease-in-out;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 20%;
+      box-shadow:
+        inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+        0 3px 6px rgba(230, 57, 70, 0.5);
+      transition: box-shadow 0.3s ease;
+    }
 
-.heart:hover {
-  box-shadow:
-    inset 3px 3px 8px rgba(255, 255, 255, 0.8),
-    0 5px 10px rgba(230, 57, 70, 0.8);
-}
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 4.6vw;
+      height: 4.6vw;
+      max-width: 53.5px;
+      max-height: 53.5px;
+      min-width: 23px;
+      min-height: 23px;
+      background-color: #e63946;
+      border-radius: 50%;
+      box-shadow:
+        inset 2px 2px 6px rgba(255, 255, 255, 0.6),
+        0 3px 6px rgba(230, 57, 70, 0.5);
+    }
 
-.heart::before,
-.heart::after {
-  content: "";
-  position: absolute;
-  width: 90px;
-  height: 90px;
-  background-color: #e63946;
-  border-radius: 50%;
-  box-shadow:
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    0 3px 6px rgba(230, 57, 70, 0.5);
-  transition: box-shadow 0.3s ease;
-}
+    .heart::before {
+      top: -50%;
+      left: 0;
+    }
 
-.heart:hover::before,
-.heart:hover::after {
-  box-shadow:
-    inset 3px 3px 8px rgba(255, 255, 255, 0.8),
-    0 5px 10px rgba(230, 57, 70, 0.8);
-}
+    .heart::after {
+      left: 50%;
+      top: 0;
+    }
 
-.heart::before {
-  top: -45px;
-  left: 0;
-}
-
-.heart::after {
-  left: 45px;
-  top: 0;
-}
-
-
-
-
-   .heart-text {
-  transform: rotate(45deg);
-  color: white;
-  font-size: 0.9rem;  /* ลดขนาดข้อความ */
-  font-weight: 700;
-  text-align: center;
-  z-index: 1;
-  pointer-events: none;
-  white-space: nowrap;
-  user-select: none;
-  line-height: 1.1;
-  padding: 0 6px; /* เว้นระยะขอบให้ข้อความไม่ชิดเกินไป */
-}
+    .heart-text {
+      transform: rotate(45deg);
+      color: white;
+      font-size: 0.7vw;   /* ลดขนาดข้อความจาก 1vw เป็น 0.7vw */
+      font-weight: 700;
+      text-align: center;
+      z-index: 1;
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+      line-height: 1.1;
+      padding: 0 2px;
+    }
 
 
     @keyframes heartbeat {
@@ -96,11 +87,10 @@
       }
     }
 
-    /* พลุ */
     .firework {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 4.5px;
+      height: 4.5px;
       border-radius: 50%;
       background-color: gold;
       animation: explode 1000ms ease-out forwards;
@@ -114,7 +104,6 @@
       }
     }
 
-    /* ข้อความสุดท้ายใหญ่อลัง */
     .final-message {
       position: fixed;
       top: 50%;
@@ -128,7 +117,7 @@
     }
 
     .final-message h1 {
-      font-size: 4.5rem;
+      font-size: 1.7rem;
       font-weight: 900;
       color: #a833ff;
       text-shadow:
@@ -142,8 +131,8 @@
     }
 
     .final-message p {
-      margin-top: 20px;
-      font-size: 1.2rem;
+      margin-top: 10px;
+      font-size: 0.45rem;
       color: #555;
       font-weight: 500;
       opacity: 0.85;
@@ -160,58 +149,121 @@
         transform: scale(1) translate(-50%, -50%);
       }
     }
+
+    #tooSlowMessage {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #000;
+      font-size: 2.3rem;
+      font-weight: 900;
+      text-shadow:
+        0 0 5px rgba(0, 0, 0, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.5),
+        2px 2px 6px rgba(0, 0, 0, 0.4);
+      z-index: 999;
+      animation: fadeTooSlow 1s ease-out;
+      pointer-events: none;
+      text-align: center;
+      user-select: none;
+    }
+
+    @keyframes fadeTooSlow {
+      0% { opacity: 0; transform: scale(0.8) translate(-50%, -50%); }
+      30% { opacity: 1; transform: scale(1.05) translate(-50%, -50%); }
+      100% { opacity: 0; transform: scale(1) translate(-50%, -50%); }
+    }
+
+    #restartContainer {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
+
+    #restartContainer button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #a833ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
 
-  <div class="heart" id="heart">
-    <div class="heart-text" id="heartText">ลองกดดูสิ</div>
-  </div>
+  <div id="heartContainer"></div>
 
   <div class="final-message" id="finalMessage" style="display: none;">
     <h1>ไปซื้อไอแพดก๊านนนน</h1>
     <p>สุขสันต์วันเกิดน้าาน้องครีมคนสวย...</p>
   </div>
 
-  <script>
-    const heart = document.getElementById('heart');
-    const heartText = document.getElementById('heartText');
-    const finalMessage = document.getElementById('finalMessage');
+  <div id="tooSlowMessage" style="display: none;"></div>
 
+  <div id="restartContainer">
+    <button onclick="restartGame()">เอาใหม่ค่า</button>
+  </div>
+
+  <script>
     const messages = [
-      "ลองกดดูสิ",
-      "ช้าจังง",
-      "กดช้าจังเลยอ่าา",
-      "แบร่กดให้ทันสี้",
-      "อุ้ยช้าอ่าา",
-      "อิอิอิแบร่~~",
-      "อุ้ยยย",
-      "เร็วอีกได้อ้ะป่าวว",
-      "แบร่~",
-      "นิ้วหนักมากแน่เลยอ่าาา",
-      "แบร่ๆๆ",
-      "ก็มาดิค้าบบ",
-      "แบร่ๆๆ",
-      "ไปซื้อไอแพดกัน"
+      "ลองกดดูสิ", "ช้าจังง", "กดช้าจังงง", "แบร่กดให้ทันสี้", "อุ้ยช้าอ่าา",
+      "อิอิแบร่~~", "อุ้ยยย", "เร็วอีกได้อ้ะป่าวว", "แบร่~", "นิ้วหนักมากแน่เลยย",
+      "แบร่ๆๆ", "ก็มาดิค้าบบ", "แบร่ๆๆ", "ไปซื้อไอแพดกัน"
     ];
 
     let clickCount = 0;
+    let reactionTimer = null;
+    const heartContainer = document.getElementById('heartContainer');
+    const finalMessage = document.getElementById('finalMessage');
+    const tooSlowMessage = document.getElementById('tooSlowMessage');
+    const restartContainer = document.getElementById('restartContainer');
 
-    function moveHeartRandomly() {
-      const heartRect = heart.getBoundingClientRect();
-      const padding = 10; // เผื่อขอบไม่ให้ชนขอบเป๊ะๆ
-      const maxX = window.innerWidth - heartRect.width - padding;
-      const maxY = window.innerHeight - heartRect.height - padding;
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      const heartText = document.createElement('div');
+      heartText.className = 'heart-text';
+      heartText.textContent = messages[clickCount] || "❤️";
+      heart.appendChild(heartText);
+
+      const padding = 10;
+      const heartSize = 53.5; // max-width in px (approx)
+      const maxX = window.innerWidth - heartSize - padding;
+      const maxY = window.innerHeight - heartSize - padding;
       const randomX = Math.floor(Math.random() * (maxX - padding) + padding);
       const randomY = Math.floor(Math.random() * (maxY - padding) + padding);
       heart.style.left = `${randomX}px`;
       heart.style.top = `${randomY}px`;
+
+      heartContainer.appendChild(heart);
+
+      reactionTimer = setTimeout(() => {
+        endGame();
+      }, 1500);
+
+      heart.addEventListener('click', () => {
+        clearTimeout(reactionTimer);
+        heart.remove();
+        clickCount++;
+
+        if (clickCount >= messages.length) {
+          createFireworksFullScreen();
+          finalMessage.style.display = 'block';
+        } else {
+          createHeart();
+        }
+      });
     }
 
     function createFireworksFullScreen() {
       const count = 120;
       const colors = ['#ffcc00', '#ff3366', '#66ccff', '#a833ff', '#00e676'];
-
       for (let i = 0; i < count; i++) {
         const particle = document.createElement("div");
         particle.className = "firework";
@@ -235,28 +287,28 @@
       }
     }
 
-    heart.addEventListener('click', () => {
-      clickCount++;
+    function endGame() {
+      clearTimeout(reactionTimer);
+      heartContainer.innerHTML = '';
+      document.body.style.backgroundColor = 'red';
+      tooSlowMessage.textContent = "ช้าเกินหนูแพ้แย้ว";
+      tooSlowMessage.style.display = "block";
+      restartContainer.style.display = "block";
+    }
 
-      if (clickCount < messages.length) {
-        heart.style.display = 'none';
-        setTimeout(() => {
-          heartText.textContent = messages[clickCount];
-          moveHeartRandomly();
-          heart.style.display = 'flex';
-        }, 300);
-      } else {
-        heart.remove();
-        createFireworksFullScreen();
-        finalMessage.style.display = 'block';
-      }
-    });
+    function restartGame() {
+      clickCount = 0;
+      tooSlowMessage.style.display = "none";
+      finalMessage.style.display = "none";
+      restartContainer.style.display = "none";
+      heartContainer.innerHTML = '';
+      document.body.style.backgroundColor = '#ffeef0';
+      createHeart();
+    }
 
-   window.onload = () => {
-    const padding = 10;
-    heart.style.left = `${(window.innerWidth - heart.offsetWidth) / 2}px`;
-    heart.style.top = `${(window.innerHeight - heart.offsetHeight) / 2}px`;
-  };
+    window.onload = () => {
+      createHeart();
+    };
   </script>
 
 </body>
